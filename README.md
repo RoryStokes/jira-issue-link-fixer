@@ -1,4 +1,4 @@
-! Jira Issue Link Fixer
+Jira Issue Link Fixer
 ===============
 
 A userscript to force issue links in Jira to navigate to the issue page, instead of displaying the 'quick details' panel.
