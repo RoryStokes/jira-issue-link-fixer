@@ -1,8 +1,7 @@
 // ==UserScript==
 // @name Jira Issue Link Fixer
 // @namespace http://www.agiledigital.com.au/
-// @require  https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @version      0.3.0
+// @version      0.4.0
 // @description  Issue links in Jira navigate directly to the issue page.
 // @author       Rory Stokes
 // @downloadURL   https://github.com/rorystokes/jira-issue-link-fixer/raw/master/jira-issue-link-fixer.user.js
@@ -11,8 +10,15 @@
 // @grant        none
 // ==/UserScript==
 
-waitForKeyElements ('.js-issue', function (issue) {
-  issue.find('a').click(function(event) {
-     event.stopPropagation();
-  });
-});
+function fixLinks() {
+  const elements = [...document.getElementsByClassName("ghx-key")];
+  if (elements.length > 0) {
+    elements.forEach(
+      issue => (issue.children[0].onclick = e => e.stopPropagation())
+    );
+  } else {
+    setTimeout(fixLinks, 100);
+  }
+}
+
+fixLinks();
